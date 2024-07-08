@@ -32,33 +32,29 @@ class DrugsViewModel(app: Application) : AndroidViewModel(app) {
     }
 }
 
-class DrugsAdapter : ListAdapter<Drug, DrugsAdapter.DrugViewHolder>(DrugDiffCallback()) {
+class DrugsAdapter : ListAdapter<Drug, DrugsAdapter.MedicationViewHolder>(DIFF_CALLBACK) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DrugViewHolder {
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Drug>() {
+            override fun areItemsTheSame(oldItem: Drug, newItem: Drug) = oldItem.id == newItem.id
+            override fun areContentsTheSame(oldItem: Drug, newItem: Drug) = oldItem == newItem
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MedicationViewHolder {
         val binding = ItemDrugsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return DrugViewHolder(binding)
+        return MedicationViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: DrugViewHolder, position: Int) {
-        val drug = getItem(position)
-        holder.bind(drug)
+    override fun onBindViewHolder(holder: MedicationViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 
-    class DrugViewHolder(private val binding: ItemDrugsBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(drug: Drug) {
-            binding.tvTitleTx.text = drug.title
-            binding.tvDescriptionTx.text = drug.description
-            binding.tvTimeTx.text = drug.time
-        }
-    }
-
-    class DrugDiffCallback : DiffUtil.ItemCallback<Drug>() {
-        override fun areItemsTheSame(oldItem: Drug, newItem: Drug): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Drug, newItem: Drug): Boolean {
-            return oldItem == newItem
+    inner class MedicationViewHolder(private val binding: ItemDrugsBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(medication: Drug) {
+            binding.tvTitle.text = medication.title
+            binding.tvDescription.text = medication.description
+            binding.tvTime.text = medication.time
         }
     }
 }

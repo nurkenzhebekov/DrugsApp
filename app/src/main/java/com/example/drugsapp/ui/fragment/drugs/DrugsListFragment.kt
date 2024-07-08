@@ -36,10 +36,13 @@ class DrugsListFragment : Fragment() {
         binding.rvDrugs.adapter = adapter
         binding.rvDrugs.layoutManager = LinearLayoutManager(requireContext())
 
-        val importance = arguments?.getString("importance") ?: "Green"
+        viewModel.getDrugsByImportance("Green").observe(viewLifecycleOwner, {
+            adapter.submitList(it)
+        })
+        /*val importance = arguments?.getString("importance") ?: "Green"
         viewModel.getDrugsByImportance(importance).observe(viewLifecycleOwner) { drugs ->
             adapter.submitList(drugs)
-        }
+        }*/
 
         binding.flacbtAddDrug.setOnClickListener {
             val dialog = AddDrugDialogFragment()

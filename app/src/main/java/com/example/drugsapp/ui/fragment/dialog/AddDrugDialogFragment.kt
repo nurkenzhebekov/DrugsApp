@@ -10,10 +10,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isNotEmpty
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.drugsapp.R
 import com.example.drugsapp.databinding.FragmentAddDrugDialogBinding
 import com.example.drugsapp.model.Drug
 import com.example.drugsapp.ui.fragment.drugs.DrugsListFragment
+import com.example.drugsapp.ui.fragment.drugs.DrugsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class AddDrugDialogFragment : DialogFragment() {
@@ -21,12 +23,16 @@ class AddDrugDialogFragment : DialogFragment() {
     private var _binding: FragmentAddDrugDialogBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var drugsViewModel: DrugsViewModel
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = FragmentAddDrugDialogBinding.inflate(layoutInflater)
+        drugsViewModel = ViewModelProvider(this).get(DrugsViewModel::class.java)
+
         val builder = MaterialAlertDialogBuilder(requireContext())
         builder.setView(binding.root)
 
-        val importanceAdapter = ArrayAdapter.createFromResource(
+        /*val importanceAdapter = ArrayAdapter.createFromResource(
             requireContext(),
             R.array.importance_levels,
             android.R.layout.simple_spinner_item
@@ -42,7 +48,7 @@ class AddDrugDialogFragment : DialogFragment() {
                 binding.spinnerImportance.visibility = View.GONE
                 binding.btDelay.visibility = View.GONE
             }
-        }
+        }*/
 
         binding.imgBtClose.setOnClickListener {
             dismiss()
@@ -52,11 +58,10 @@ class AddDrugDialogFragment : DialogFragment() {
             val title = binding.edtTitle.text.toString()
             val description = binding.edtDescription.text.toString()
             val time = binding.edtTime.text.toString()
-            val importance = binding.spinnerImportance.selectedItem.toString()
+            val importance = if (binding.checkbox.isChecked) binding.spinnerImportance.selectedItem.toString() else "Green"
 
-            if (title.isNotEmpty() && description.isNotEmpty() && time.isNotEmpty() && importance.isNotEmpty()) {
-                val targetFragment = targetFragment as? DrugsListFragment
-                targetFragment?.addDrug(Drug(title = title, description = description, time = time, importance = importance))
+            if (title.isNotEmpty() && description.isNotEmpty() && time.isNotEmpty()) {
+                drugsViewModel.insert(Drug(title = title, description = description, time = time, importance = importance))
                 dismiss()
             } else {
                 Toast.makeText(requireContext(), "Please, fill all the fields", Toast.LENGTH_SHORT).show()
