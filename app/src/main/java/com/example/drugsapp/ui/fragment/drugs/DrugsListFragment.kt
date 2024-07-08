@@ -39,25 +39,15 @@ class DrugsListFragment : Fragment() {
         viewModel.getDrugsByImportance("Green").observe(viewLifecycleOwner, {
             adapter.submitList(it)
         })
-        /*val importance = arguments?.getString("importance") ?: "Green"
+        val importance = arguments?.getString("importance") ?: "Green"
         viewModel.getDrugsByImportance(importance).observe(viewLifecycleOwner) { drugs ->
             adapter.submitList(drugs)
-        }*/
+        }
 
         binding.flacbtAddDrug.setOnClickListener {
             val dialog = AddDrugDialogFragment()
             dialog.show(parentFragmentManager, "AddDrugDialogFragment")
         }
-        /*val fab: FloatingActionButton = view.findViewById(R.id.flacbt_add_drug)
-        fab.setOnClickListener {
-            val dialogFragment = AddDrugDialogFragment()
-            dialogFragment.setTargetFragment(this, 0)
-            dialogFragment.show(parentFragmentManager, "AddDrugDialogFragment")
-        }*/
-    }
-
-    fun addDrug(drug: Drug) {
-        viewModel.insert(drug)
     }
 
     companion object {
