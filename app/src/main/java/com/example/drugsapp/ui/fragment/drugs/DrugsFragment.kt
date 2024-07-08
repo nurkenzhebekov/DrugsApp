@@ -1,6 +1,7 @@
 package com.example.drugsapp.ui.fragment.drugs
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -51,9 +52,11 @@ class DrugsFragment : Fragment() {
     }
 
     private fun observeDrugs(importance: String, tab: TabLayout.Tab, defaultIconRes: Int) {
-        drugsViewModel.getDrugsByImportance(importance).observe(viewLifecycleOwner, {
-            if (it.isNotEmpty()) {
-                tab.icon = ContextCompat.getDrawable(requireContext(), defaultIconRes)
+        drugsViewModel.getDrugsByImportance(importance).observe(viewLifecycleOwner, { drugs ->
+            Log.d("DrugsFragment", "Received drugs for importance: $importance, count: ${drugs.size}")
+            if (drugs.isNotEmpty()) {
+                val icon = ContextCompat.getDrawable(requireContext(), defaultIconRes)?.mutate()
+                tab.icon = icon
             } else {
                 tab.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_tab_black)
             }

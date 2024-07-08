@@ -12,7 +12,8 @@ class DrugsVPAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
         return when (position) {
             0 -> DrugsListFragment.newInstance("Green")
             1 -> DrugsListFragment.newInstance("Red")
-            else -> DrugsListFragment.newInstance("Yellow")
+            2 -> DrugsListFragment.newInstance("Orange")
+            else -> throw IllegalArgumentException("Invalid position")
         }
     }
 }
