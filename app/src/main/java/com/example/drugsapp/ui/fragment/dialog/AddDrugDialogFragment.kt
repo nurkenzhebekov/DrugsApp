@@ -32,7 +32,7 @@ class AddDrugDialogFragment : DialogFragment() {
         val builder = MaterialAlertDialogBuilder(requireContext())
         builder.setView(binding.root)
 
-        /*val importanceAdapter = ArrayAdapter.createFromResource(
+        val importanceAdapter = ArrayAdapter.createFromResource(
             requireContext(),
             R.array.importance_levels,
             android.R.layout.simple_spinner_item
@@ -48,7 +48,7 @@ class AddDrugDialogFragment : DialogFragment() {
                 binding.spinnerImportance.visibility = View.GONE
                 binding.btDelay.visibility = View.GONE
             }
-        }*/
+        }
 
         binding.imgBtClose.setOnClickListener {
             dismiss()
@@ -58,10 +58,10 @@ class AddDrugDialogFragment : DialogFragment() {
             val title = binding.edtTitle.text.toString()
             val description = binding.edtDescription.text.toString()
             val time = binding.edtTime.text.toString()
-            val importance = if (binding.checkbox.isChecked) binding.spinnerImportance.selectedItem.toString() else "Green"
+            val importance = if (binding.checkbox.isChecked) binding.spinnerImportance.selectedItem else "Green"
 
             if (title.isNotEmpty() && description.isNotEmpty() && time.isNotEmpty()) {
-                drugsViewModel.insert(Drug(title = title, description = description, time = time, importance = importance))
+                drugsViewModel.insert(Drug(title = title, description = description, time = time, importance = importance.toString()))
                 dismiss()
             } else {
                 Toast.makeText(requireContext(), "Please, fill all the fields", Toast.LENGTH_SHORT).show()
