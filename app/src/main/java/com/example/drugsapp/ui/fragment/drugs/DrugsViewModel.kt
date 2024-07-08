@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +13,7 @@ import com.example.drugsapp.data.DrugsDatabase
 import com.example.drugsapp.databinding.ItemDrugsBinding
 import com.example.drugsapp.model.Drug
 import com.example.drugsapp.repository.DrugsRepository
+import kotlinx.coroutines.launch
 
 class DrugsViewModel(app: Application) : AndroidViewModel(app) {
     private val repository: DrugsRepository
@@ -23,6 +25,10 @@ class DrugsViewModel(app: Application) : AndroidViewModel(app) {
 
     fun getDrugsByImportance(importance: String): LiveData<List<Drug>> {
         return repository.getDrugsByImportance(importance)
+    }
+
+    fun insert(drug: Drug) = viewModelScope.launch {
+        repository.insert(drug)
     }
 }
 

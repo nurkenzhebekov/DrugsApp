@@ -15,4 +15,9 @@
         android:name="com.example.drugsapp.ui.fragment.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/drugsListFragment"
+        android:name="com.example.drugsapp.ui.fragment.drugs.DrugsListFragment"
+        android:label="fragment_drugs_list"
+        tools:layout="@layout/fragment_drugs_list" />
 </navigation>

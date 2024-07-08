@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
+
+    <ImageButton
+        android:id="@+id/img_bt_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_cancel"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <EditText
+        android:id="@+id/edt_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/img_bt_close"
+        app:layout_constraintStart_toStartOf="parent"
+        android:hint="Title" />
+
+    <EditText
+        android:id="@+id/edt_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/edt_title"
+        app:layout_constraintStart_toStartOf="parent"
+        android:hint="Description" />
+
+    <EditText
+        android:id="@+id/edt_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/edt_description"
+        app:layout_constraintStart_toStartOf="parent"
+        android:hint="Time" />
+
+
+    <TextView
+        android:id="@+id/tv_importance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/edt_time"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Importance"
+        android:textSize="20sp"/>
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/edt_time"
+        app:layout_constraintStart_toEndOf="@id/tv_importance"/>
+
+    <Spinner
+        android:id="@+id/spinner_importance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/checkbox"
+        app:layout_constraintStart_toStartOf="parent"
+        android:hint="Importance" />
+
+    <Button
+        android:id="@+id/bt_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/spinner_importance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/bt_change"
+        android:text="Add" />
+
+    <Button
+        android:id="@+id/bt_change"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/spinner_importance"
+        app:layout_constraintStart_toEndOf="@id/bt_add"
+        app:layout_constraintEnd_toStartOf="@id/bt_delay"
+        android:text="Change" />
+
+    <Button
+        android:id="@+id/bt_delay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/spinner_importance"
+        app:layout_constraintStart_toEndOf="@id/bt_change"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Delay" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

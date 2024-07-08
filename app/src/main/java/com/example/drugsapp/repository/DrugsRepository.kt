@@ -9,4 +9,6 @@ class DrugsRepository(private val drugsDao: DrugsDao) {
     fun getDrugsByImportance(importance: String): LiveData<List<Drug>> {
         return drugsDao.getDrugsByImportance(importance)
     }
+
+    suspend fun insert(drug: Drug) = drugsDao.insert(drug)
 }

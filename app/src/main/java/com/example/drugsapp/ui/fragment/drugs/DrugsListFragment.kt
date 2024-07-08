@@ -7,7 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.drugsapp.R
 import com.example.drugsapp.databinding.FragmentDrugsListBinding
+import com.example.drugsapp.model.Drug
+import com.example.drugsapp.ui.fragment.dialog.AddDrugDialogFragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class DrugsListFragment : Fragment() {
 
@@ -36,6 +40,21 @@ class DrugsListFragment : Fragment() {
         viewModel.getDrugsByImportance(importance).observe(viewLifecycleOwner) { drugs ->
             adapter.submitList(drugs)
         }
+
+        binding.flacbtAddDrug.setOnClickListener {
+            val dialog = AddDrugDialogFragment()
+            dialog.show(parentFragmentManager, "AddDrugDialogFragment")
+        }
+        /*val fab: FloatingActionButton = view.findViewById(R.id.flacbt_add_drug)
+        fab.setOnClickListener {
+            val dialogFragment = AddDrugDialogFragment()
+            dialogFragment.setTargetFragment(this, 0)
+            dialogFragment.show(parentFragmentManager, "AddDrugDialogFragment")
+        }*/
+    }
+
+    fun addDrug(drug: Drug) {
+        viewModel.insert(drug)
     }
 
     companion object {
